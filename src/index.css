@@ -13,3 +13,7 @@ body {
   font-family: "Space Grotesk Variable", sans-serif;
   @apply font-bold;
 }
+
+.modal {
+  box-shadow: important none;
+}
