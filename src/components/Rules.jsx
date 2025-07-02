@@ -1,29 +1,9 @@
+import Modal from "./shared/modal";
 
-import Btn from "./shared/btn";
-import { useState } from "react";
-
-export default function ModalRules() {
-  const [btnRule, setBtnRule] = useState(false);
-
-  const toggleModal = () => {
-    setBtnRule(!btnRule);
-  };
-
-      console.log(btnRule);
-
-
+export default function Rules() {
   return (
-    <>
-      <Btn
-        open={toggleModal}
-        texto="GAME RULES"
-        color="bg-info hover:border-primary"
-      />
-
-      {btnRule && (
-        <dialog open className="modal  !bg-red-300  ">
-          <div className="modal-box border-2 border-black border-b-12 rounded-none shadow-none">
-            <h2 className="font-bold text-4xl text-center ">Rules</h2>
+    <Modal name={"GAME RULES"} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
+      <h2 className="font-bold text-4xl text-center ">Rules</h2>
             <h4 className="py-4 text-primary">OBJECTIVE</h4>
             <p className="mb-6">
               Be the first player to connect 4 of the same colored discs in a
@@ -46,16 +26,6 @@ export default function ModalRules() {
                 the starter od the previous game goes second on the next game.
               </li>
             </ol>
-            <div className="modal-action">
-              <form method="dialog">
-                <button onClick={() => setBtnRule(!btnRule)} className="btn size-20 rounded-full border-2 border-black border-b-12 hover:border-b-30 transition-all duration-700 ">
-                  Close
-                </button>
-              </form>
-            </div>
-          </div>
-        </dialog>
-      )}
-    </>
+    </Modal>
   );
 }
