@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, valentine, forest, 
-cupcake, lemonade;
+  themes: light --default, dark --prefersdark, valentine, forest, cupcake,
+    lemonade;
 }
 
-body {
-  @apply bg-base-300;
+html {
   @apply w-full;
   @apply h-dvh;
+  @apply bg-base-300;
   @apply text-base-content;
   font-family: "Space Grotesk Variable", sans-serif;
   @apply font-bold;
+}
+
+body {
 }
 
 .modal {

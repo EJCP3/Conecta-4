@@ -3,7 +3,7 @@ import Modal from "./shared/modal";
 
 export default function Setting() {
   return (
-    <Modal name={"SETTING"} btnColor={"bg-warning hover:border-error"} bgColor={"!bg-warning"}>
+    <Modal close={true} name={"SETTING"} btnColor={"bg-warning hover:border-error"} bgColor={"!bg-warning"}>
       <h2 className="font-bold text-4xl text-center ">Setting</h2>
       <article className="flex flex-col justify-center my-4">
         <h3 className="font-bold text-2xl my-2 ">Theme</h3>

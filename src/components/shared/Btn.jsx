@@ -1,12 +1,12 @@
-export default function Btn({ color, texto, img,open }) {
-  
-
+export default function Btn({text, color, btnName, img, open, btnStyle = "border-1 border-black border-b-8" }) {
   return (
     <a
       onClick={open}
-      className={`flex  justify-between px-4  rounded-box  h-20 grow place-items-center border-1 border-black border-b-8  transition-colors duration-500 ${color}`}
+      className={`flex  justify-between px-4  rounded-box  
+      grow place-items-center h-20
+      transition-colors duration-500 ${color} ${btnStyle}`}
     >
-      <span className="text-x md:text-xl">{texto}</span>
+      <span className={`mx-auto text-x md:text-xl ${text} `}>{btnName}</span>
       {img ? <img className="size-5" src={img} /> : null}
     </a>
   );

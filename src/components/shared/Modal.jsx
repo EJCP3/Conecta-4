@@ -1,22 +1,26 @@
 import { useState } from "react";
 import Btn from "./Btn";
 
-export default function Modal({ children, name, btnColor, bgColor }) {
+export default function Modal({ children, name, btnColor, bgColor, btnStyle, text, close, bdModal }) {
   const [btnRule, setBtnRule] = useState(false);
 
   const toggleModal = () => {
     setBtnRule(!btnRule);
   };
 
+  console.log(btnStyle)
+
   return (
     <>
-      <Btn open={toggleModal} texto={name} color={btnColor} />
+      <Btn open={toggleModal} btnName={name} color={btnColor} btnStyle={btnStyle} text={text} />
 
       {btnRule && (
         <dialog open className={`modal ${bgColor}`}>
-          <div className="modal-box border-2 border-black border-b-12 rounded-none shadow-none">
+          <div className={`modal-box border-2 border-black border-b-12 rounded-none shadow-none ${bdModal}`}>
             {children}
-            <div className="modal-action">
+            
+            {
+              close ? <div className="modal-action">
               <form method="dialog">
                 <button
                   onClick={() => setBtnRule(!btnRule)}
@@ -25,7 +29,8 @@ export default function Modal({ children, name, btnColor, bgColor }) {
                   Close
                 </button>
               </form>
-            </div>
+            </div> : null
+            }
           </div>
         </dialog>
       )}

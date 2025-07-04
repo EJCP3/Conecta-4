@@ -2,7 +2,7 @@ import Modal from "./shared/modal";
 
 export default function Rules() {
   return (
-    <Modal name={"GAME RULES"} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
+    <Modal close={true} name={"GAME RULES"} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
       <h2 className="font-bold text-4xl text-center ">Rules</h2>
             <h4 className="py-4 text-primary">OBJECTIVE</h4>
             <p className="mb-6">

@@ -11,19 +11,19 @@ export default function Home() {
         <article className="flex  md:flex-col flex-row  ">
           <Link to="/player">
             <Btn
-              texto="PLAY VS PLAYER"
+              btnName="PLAY VS PLAYER"
               color="bg-primary hover:border-success"
             />
           </Link>
-          <span className="my-auto md:my-4 md:mx-auto divider  text-black">
+          <span className="my-auto md:my-4 md:mx-auto divider ">
             OR
           </span>
-          <Btn texto="PLAY VS CPU" color="bg-primary hover:border-success" />
+          <Btn btnName="PLAY VS CPU" color="bg-primary hover:border-success" />
           <div className="divider"></div>
         </article>
         <article className="flex w-full flex-col gap-2 text-black">
           <Rules />
-          <Setting/>
+          <Setting />
         </article>
       </section>
     </main>
