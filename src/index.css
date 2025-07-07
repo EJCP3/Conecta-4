@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, valentine, forest, cupcake,
-    lemonade;
+  themes: light --default, valentine, forest, cupcake,
+    lemonade, cyberpunk, aqua, business, night;
 }
 
 html {
@@ -19,4 +19,9 @@ body {
 
 .modal {
   box-shadow: important none;
+}
+
+
+.figura {
+clip-path: polygon(0 47%, 55% 0, 100% 46%, 100% 100%, 75% 100%, 28% 100%, 0 100%);
 }

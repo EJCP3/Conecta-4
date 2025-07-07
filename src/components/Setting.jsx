@@ -12,8 +12,8 @@ export default function Setting() {
             type="radio"
             name="theme-buttons"
             className="btn theme-controller join-item"
-            aria-label="Default"
-            value="default"
+            aria-label="Dark"
+            value="dark"
           />
           <input
             type="radio"
