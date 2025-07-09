@@ -26,7 +26,7 @@ export default function Header() {
         </Modal>
       </div>
       <img src="/logo.svg" />
-      <button class="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100">
+      <button className="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100">
         RESET
       </button>
     </nav>

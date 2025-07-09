@@ -8,7 +8,6 @@ export default function Modal({ children, name, btnColor, bgColor, btnStyle, tex
     setBtnRule(!btnRule);
   };
 
-  console.log(btnStyle)
 
   return (
     <>
