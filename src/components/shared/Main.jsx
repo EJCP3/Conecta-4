@@ -1,7 +1,6 @@
 import { useState } from "react";
-import logo from "/turn-bg.svg";
 import { Bola1, Bola2 } from "./Bola";
-import { useAsyncError } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Turns = {
   P1: <Bola1 />,
@@ -29,16 +28,37 @@ export default function Main() {
   const [board, setBoard] = useState(Array(42).fill(null));
   const [turn, setTurn] = useState(Turns.P1);
   const [winner, setWinner] = useState(null);
-  const [score, setScore] = useState({ P1: 1, P2: 2 });
+  const [score, setScore] = useState({ P1: 0, P2: 0 });
+  const [time, setTime] = useState(30);
+  const [isRunning, setIsRunning] = useState(false);
 
-  const ResetGame = () => {
+  const resetGame = () => {
     setBoard(Array(42).fill(null));
     setTurn(Turns.P1);
-     setWinner(null)
+    setWinner(null);
   };
+
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const intervalId = setInterval(() => {
+      setTime((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(intervalId);
+          setIsRunning(false);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    // Limpia el intervalo al desmontar o cuando se detenga
+    return () => clearInterval(intervalId);
+  }, [isRunning, turn]);
 
   const startPlay = (value) => {
     setPlay(value);
+    setIsRunning(true);
   };
 
   const checkWinner = (boardToCheck, index) => {
@@ -101,25 +121,26 @@ export default function Main() {
     if (board[index] || winner) return;
 
     const columna = index % 7;
-
     for (let fila = 6; fila >= 0; fila--) {
       const i = fila * 7 + columna;
+      console.log(i);
       if (board[i] === null) {
         const newBoard = [...board];
         newBoard[i] = turn;
         setBoard(newBoard);
 
         const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
+        setTime(30);
+
         setTurn(newTurn);
         const newWinner = checkWinner(newBoard, index);
         if (newWinner) {
           setWinner(newWinner);
-          setScore((prev) => ({
-            ...prev,
-            P1: winner === Turns.P1 ? score.P1++ : score.P1++,
-            P2: winner === Turns.P2 ? score.P2++ : score.P2++,
-          }));score
-
+          setScore((prevScore) => ({
+            P1: turn === Turns.P1 ? prevScore.P1 + 1 : prevScore.P1,
+            P2: turn === Turns.P2 ? prevScore.P2 + 1 : prevScore.P2,
+          }));
+          setIsRunning(false);
           setCurrentStep(3);
         }
 
@@ -229,7 +250,7 @@ export default function Main() {
               PLAYER 1 STARTS
             </figcaption>
             <figcaption className=" absolute top-1/2 left-1/2 -translate-x-1/2 text-2xl text-white font-bold mt-2">
-              30S
+              {time}
             </figcaption>
           </figure>
         )}
@@ -245,7 +266,7 @@ export default function Main() {
             <button
               onClick={() => {
                 startPlay(false);
-                ResetGame();
+                resetGame();
                 setCurrentStep(1);
               }}
               className="btn w-30 mx-auto rounded-2xl"
