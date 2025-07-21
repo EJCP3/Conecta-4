@@ -23,15 +23,16 @@ const Circle = ({ children, updateBoard, index }) => {
 };
 
 export default function Main() {
+  const tiempo = 2;
+
   const [currentStep, setCurrentStep] = useState(1);
   const [play, setPlay] = useState(false);
   const [board, setBoard] = useState(Array(42).fill(null));
   const [turn, setTurn] = useState(Turns.P1);
   const [winner, setWinner] = useState(null);
   const [score, setScore] = useState({ P1: 0, P2: 0 });
-  const [time, setTime] = useState(30);
+  const [time, setTime] = useState(tiempo);
   const [isRunning, setIsRunning] = useState(false);
-
   const resetGame = () => {
     setBoard(Array(42).fill(null));
     setTurn(Turns.P1);
@@ -44,9 +45,9 @@ export default function Main() {
     const intervalId = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime <= 1) {
+          updateBoardAuto();
           clearInterval(intervalId);
-          setIsRunning(false);
-          return 0;
+          setIsRunning(true);
         }
         return prevTime - 1;
       });
@@ -116,23 +117,52 @@ export default function Main() {
     return false;
   };
 
-  const updateBoard = (index) => {
-    if (!play) return;
-    if (board[index] || winner) return;
+  const updateBoardAuto = () => {
+    const nuevaColumna = Math.floor(Math.random() * 6) + 1;
 
-    const columna = index % 7;
+    if (!play) return;
+    if (winner) return;
+
     for (let fila = 6; fila >= 0; fila--) {
-      const i = fila * 7 + columna;
-      console.log(i);
+      const i = fila * 7 + nuevaColumna;
       if (board[i] === null) {
         const newBoard = [...board];
         newBoard[i] = turn;
         setBoard(newBoard);
 
+        const newWinner = checkWinner(newBoard, i);
+        if (newWinner) {
+          setWinner(newWinner);
+          setScore((prevScore) => ({
+            P1: turn === Turns.P1 ? prevScore.P1 + 1 : prevScore.P1,
+            P2: turn === Turns.P2 ? prevScore.P2 + 1 : prevScore.P2,
+          }));
+          setIsRunning(false);
+          setCurrentStep(3);
+          return;
+        }
         const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
-        setTime(30);
+        setTime(tiempo);
 
         setTurn(newTurn);
+        break;
+      }
+    }
+  };
+
+  const updateBoard = (index) => {
+    if (!play) return;
+    if (board[index] || winner) return;
+
+    const columna = index % 7;
+
+    for (let fila = 6; fila >= 0; fila--) {
+      const i = fila * 7 + columna;
+      if (board[i] === null) {
+        const newBoard = [...board];
+        newBoard[i] = turn;
+        setBoard(newBoard);
+
         const newWinner = checkWinner(newBoard, index);
         if (newWinner) {
           setWinner(newWinner);
@@ -142,7 +172,11 @@ export default function Main() {
           }));
           setIsRunning(false);
           setCurrentStep(3);
+          return;
         }
+        const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
+        setTime(tiempo);
+        setTurn(newTurn);
 
         break;
       }
