@@ -1,4 +1,5 @@
-import Modal from "./shared/modal";
+import Modal from "../../shared/Modal";
+
 
 export default function Rules() {
   return (

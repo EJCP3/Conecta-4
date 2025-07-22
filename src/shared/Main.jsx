@@ -1,26 +1,7 @@
 import { useState } from "react";
-import { Bola1, Bola2 } from "./Bola";
 import { useEffect } from "react";
-
-export const Turns = {
-  P1: <Bola1 />,
-  P2: <Bola2 />,
-};
-
-const Circle = ({ children, updateBoard, index }) => {
-  const handleClick = () => {
-    updateBoard(index);
-  };
-
-  return (
-    <div
-      onClick={handleClick}
-      className=" rounded-full size-8 md:size-10 lg:size-14 pointer-none  bg-base-300 z-10 "
-    >
-      {children}
-    </div>
-  );
-};
+import { Turns } from "../constants/Turns.jsx";
+import { Circle } from "./Circle.jsx";
 
 export default function Main() {
   const tiempo = 2;

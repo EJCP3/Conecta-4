@@ -1,5 +1,5 @@
-import React from "react";
-import Modal from "./shared/modal";
+import Modal from "../../shared/Modal";
+
 
 export default function Setting() {
   return (

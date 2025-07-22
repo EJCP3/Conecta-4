@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
+import Btn from "../../shared/Btn";
 import Rules from "./Rules";
-import Btn from "./shared/Btn";
 import Setting from "./Setting";
+
+
+
 
 export default function Home() {
   return (
@@ -9,7 +12,7 @@ export default function Home() {
       <section className="gap-4 card text-primary-content w-5/6 max-w-110 bg-base-200 p-10 shadow-2xl border-1 border-black border-b-8 ">
         <img className="size-12 mx-auto my-4" src="/logo.svg" />
         <article className="flex  md:flex-col flex-row  ">
-          <Link to="/player">
+          <Link to="/Player">
             <Btn
               btnName="PLAY VS PLAYER"
               color="bg-primary hover:border-success"

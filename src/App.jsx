@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "./components/Home"
-import Player from "./components/Player"
-import CPU from "./components/CPU"
+import Home from "./components/Home/Home"
+import Player from "./components/Player/Player"
+import CPU from "./components/CPU/CPU"
 
 function App() {
 
