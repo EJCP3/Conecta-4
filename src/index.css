@@ -2,7 +2,7 @@
 
 @plugin "daisyui" {
   themes: light --default, valentine, forest, cupcake,
-    lemonade, cyberpunk, aqua, business, night;
+    lemonade, cyberpunk, aqua, business, night, dark;
 }
 
 html {

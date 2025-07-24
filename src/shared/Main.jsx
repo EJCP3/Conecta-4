@@ -1,176 +1,38 @@
 import { useState } from "react";
-import { useEffect } from "react";
 import { Turns } from "../constants/Turns.jsx";
 import { Circle } from "./Circle.jsx";
+import Score from "./Score.jsx";
+import UseCheckWinner from "../logic/CheckWinner.js";
+// import { UseChangeTurn } from "../hooks/useChangeTurn.js";
+import { useUpdateBoard } from "../hooks/UseUpdateBoard.js";
+import ResetGame from "../logic/BtnReset.js";
 
 export default function Main() {
-  const tiempo = 2;
-
   const [currentStep, setCurrentStep] = useState(1);
   const [play, setPlay] = useState(false);
-  const [board, setBoard] = useState(Array(42).fill(null));
-  const [turn, setTurn] = useState(Turns.P1);
-  const [winner, setWinner] = useState(null);
-  const [score, setScore] = useState({ P1: 0, P2: 0 });
-  const [time, setTime] = useState(tiempo);
-  const [isRunning, setIsRunning] = useState(false);
-  const resetGame = () => {
-    setBoard(Array(42).fill(null));
-    setTurn(Turns.P1);
-    setWinner(null);
-  };
+  
+  const {
+    score,
+    board,
+    turn,
+    updateBoard,
+    setBoard,
+    setTurn,
+    setWinner,
+    setIsRunning,
+    time
+  } = useUpdateBoard(play, setCurrentStep);
 
-  useEffect(() => {
-    if (!isRunning) return;
-
-    const intervalId = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime <= 1) {
-          updateBoardAuto();
-          clearInterval(intervalId);
-          setIsRunning(true);
-        }
-        return prevTime - 1;
-      });
-    }, 1000);
-
-    // Limpia el intervalo al desmontar o cuando se detenga
-    return () => clearInterval(intervalId);
-  }, [isRunning, turn]);
 
   const startPlay = (value) => {
     setPlay(value);
     setIsRunning(true);
   };
 
-  const checkWinner = (boardToCheck, index) => {
-    const ROWS = 6;
-    const COLS = 7;
-    const DIRECTIONS = [
-      { dr: 0, dc: 1 }, // →
-      { dr: 1, dc: 0 }, // ↓
-      { dr: 1, dc: 1 }, // ↘
-      { dr: 1, dc: -1 }, // ↙
-    ];
-
-    const player = boardToCheck[index];
-    if (!player) return false; // Celda vacía ⇒ no puede haber ganador
-
-    const row0 = Math.floor(index / COLS);
-    const col0 = index % COLS;
-
-    for (const { dr, dc } of DIRECTIONS) {
-      let count = 1;
-
-      // Recorre en la dirección positiva
-      let row = row0 + dr;
-      let column = col0 + dc;
-      while (
-        row >= 0 &&
-        row < ROWS &&
-        column >= 0 &&
-        column < COLS &&
-        board[row * COLS + column] === player
-      ) {
-        count++;
-        row += dr;
-        column += dc;
-      }
-
-      // Recorre en la dirección contraria
-      row = row0 - dr;
-      column = col0 - dc;
-      while (
-        row >= 0 &&
-        row < ROWS &&
-        column >= 0 &&
-        column < COLS &&
-        board[row * COLS + column] === player
-      ) {
-        count++;
-        row -= dr;
-        column -= dc;
-      }
-
-      if (count >= 4) return player;
-    }
-
-    return false;
-  };
-
-  const updateBoardAuto = () => {
-    const nuevaColumna = Math.floor(Math.random() * 6) + 1;
-
-    if (!play) return;
-    if (winner) return;
-
-    for (let fila = 6; fila >= 0; fila--) {
-      const i = fila * 7 + nuevaColumna;
-      if (board[i] === null) {
-        const newBoard = [...board];
-        newBoard[i] = turn;
-        setBoard(newBoard);
-
-        const newWinner = checkWinner(newBoard, i);
-        if (newWinner) {
-          setWinner(newWinner);
-          setScore((prevScore) => ({
-            P1: turn === Turns.P1 ? prevScore.P1 + 1 : prevScore.P1,
-            P2: turn === Turns.P2 ? prevScore.P2 + 1 : prevScore.P2,
-          }));
-          setIsRunning(false);
-          setCurrentStep(3);
-          return;
-        }
-        const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
-        setTime(tiempo);
-
-        setTurn(newTurn);
-        break;
-      }
-    }
-  };
-
-  const updateBoard = (index) => {
-    if (!play) return;
-    if (board[index] || winner) return;
-
-    const columna = index % 7;
-
-    for (let fila = 6; fila >= 0; fila--) {
-      const i = fila * 7 + columna;
-      if (board[i] === null) {
-        const newBoard = [...board];
-        newBoard[i] = turn;
-        setBoard(newBoard);
-
-        const newWinner = checkWinner(newBoard, index);
-        if (newWinner) {
-          setWinner(newWinner);
-          setScore((prevScore) => ({
-            P1: turn === Turns.P1 ? prevScore.P1 + 1 : prevScore.P1,
-            P2: turn === Turns.P2 ? prevScore.P2 + 1 : prevScore.P2,
-          }));
-          setIsRunning(false);
-          setCurrentStep(3);
-          return;
-        }
-        const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
-        setTime(tiempo);
-        setTurn(newTurn);
-
-        break;
-      }
-    }
-  };
-
   return (
     <section className=" flex gap-y-2 flex-wrap sm:gap-x-0    w-11/12 lg:max-w-300 mx-auto gap-x-20 mt-5 justify-center sm:items-center  ">
-      <div className="size-30 rounded-xl border-b-10 border-3 bg-base-100 p-6 text-2xl text-center">
-        <img />
-        <h2>YOU</h2>
-        <p> {score.P1} </p>
-      </div>
+      <Score name={"PLAYER 1"} punto={score.P1} />
+
       <div className="size-80 grid md:size-100 lg:w-140 lg:h-120  grid-cols-7 gap-y-2   mx-auto  border-3  rounded-4xl p-4 bg-base-100  border-b-10 order-3 sm:order-2">
         {board.map((_, index) => {
           return (
@@ -180,11 +42,8 @@ export default function Main() {
           );
         })}
       </div>
-      <div className="size-30 rounded-xl border-b-10 border-3 bg-base-100 p-6 order-2 text-center text-2xl sm:order-3">
-        <img />
-        <h2 className="-ml-1">PLAYER</h2>
-        <p>{score.P2}</p>
-      </div>
+
+      <Score name={"PLAYER 2"} punto={score.P2} order={"order-2 sm:order-3"} />
 
       <footer className="w-full h-60   rounded-2xl  p-10 order-4  flex justify-center items-center border-b-10 border-3 ">
         {currentStep === 1 && (
@@ -281,7 +140,7 @@ export default function Main() {
             <button
               onClick={() => {
                 startPlay(false);
-                resetGame();
+                ResetGame(setBoard, setTurn, setWinner);
                 setCurrentStep(1);
               }}
               className="btn w-30 mx-auto rounded-2xl"

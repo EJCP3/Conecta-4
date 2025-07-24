@@ -54,14 +54,14 @@ export default function Setting() {
       </article>
       <article className="my-4">
         <h3 className="font-bold text-2xl my-2">Music</h3>
-        <label class="flex cursor-pointer gap-2">
-          <span class="label-text">OFF</span>
+        <label className="flex cursor-pointer gap-2">
+          <span className="label-text">OFF</span>
           <input
             type="checkbox"
             value="synthwave"
-            class="toggle theme-controller"
+            className="toggle theme-controller"
           />
-          <span class="label-text">ON</span>
+          <span className="label-text">ON</span>
         </label>
       </article>
     </Modal>
