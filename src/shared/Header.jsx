@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import Btn from "./Btn";
 import Modal from "./Modal";
-import { BtnReset } from "./BtnReset";
+import { useState } from "react";
+
+export default function Header({ hookData }) {
+  const [btnRule, setBtnRule] = useState(false);
+  const { resetGame, startPlay } = hookData;
+
+    const toggleModal = () => {
+    setBtnRule(!btnRule);
+    console.log(btnRule)
+  };
 
 
-
-export default function Header() {
   return (
     <nav className="flex justify-between navbar mx-auto max-w-200">
       <div>
         <Modal
+        
           text={"text-x"}
           name={"MENU"}
           bdModal={"!rounded-4xl"}
@@ -20,8 +28,11 @@ export default function Header() {
         >
           <section className="flex gap-y-2 flex-col">
             <h1 className="text-center my-2 text-4xl">PAUSE</h1>
-            <Btn btnName={"CONTINUE GAME"} color={"hover:border-success"} />
-            <Btn btnName={"RESTART"} color={"hover:border-success"} />
+            <Btn
+              open={toggleModal}
+              btnName={"CONTINUE GAME"}
+              color={"hover:border-success"}
+            />
             <Link to="/">
               <Btn
                 text={"text-white"}
@@ -33,7 +44,15 @@ export default function Header() {
         </Modal>
       </div>
       <img src="/logo.svg" />
-      <BtnReset />
+      <button
+        onClick={() => {
+          startPlay(false);
+          resetGame();
+        }}
+        className="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100"
+      >
+        RESET
+      </button>
     </nav>
   );
 }

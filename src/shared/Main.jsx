@@ -1,33 +1,18 @@
-import { useState } from "react";
 import { Turns } from "../constants/Turns.jsx";
 import { Circle } from "./Circle.jsx";
 import Score from "./Score.jsx";
-import UseCheckWinner from "../logic/CheckWinner.js";
-// import { UseChangeTurn } from "../hooks/useChangeTurn.js";
-import { useUpdateBoard } from "../hooks/UseUpdateBoard.js";
-import ResetGame from "../logic/BtnReset.js";
 
-export default function Main() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [play, setPlay] = useState(false);
-  
+export default function Main({ hookData }) {
   const {
     score,
     board,
     turn,
+    resetGame,
+    startPlay,
     updateBoard,
-    setBoard,
-    setTurn,
-    setWinner,
-    setIsRunning,
-    time
-  } = useUpdateBoard(play, setCurrentStep);
-
-
-  const startPlay = (value) => {
-    setPlay(value);
-    setIsRunning(true);
-  };
+    time,
+    currentStep,
+  } = hookData;
 
   return (
     <section className=" flex gap-y-2 flex-wrap sm:gap-x-0    w-11/12 lg:max-w-300 mx-auto gap-x-20 mt-5 justify-center sm:items-center  ">
@@ -53,7 +38,6 @@ export default function Main() {
             <button
               onClick={() => {
                 startPlay(true);
-                setCurrentStep(2);
               }}
               className="btn btn-info w-30 mx-auto rounded-2xl"
             >
@@ -140,8 +124,7 @@ export default function Main() {
             <button
               onClick={() => {
                 startPlay(false);
-                ResetGame(setBoard, setTurn, setWinner);
-                setCurrentStep(1);
+                resetGame();
               }}
               className="btn w-30 mx-auto rounded-2xl"
             >

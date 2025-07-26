@@ -4,8 +4,10 @@ import Btn from "./Btn";
 export default function Modal({ children, name, btnColor, bgColor, btnStyle, text, close, bdModal }) {
   const [btnRule, setBtnRule] = useState(false);
 
+  console.log(btnRule)
   const toggleModal = () => {
     setBtnRule(!btnRule);
+    console.log(btnRule)
   };
 
 
