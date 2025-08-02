@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Btn from "./Btn";
-import Modal from "./Modal";
+import Btn from "../../shared/Btn";
+import Modal from "../../shared/Modal"
 import { useState } from "react";
 
 export default function Header({ hookData }) {
   const [btnRule, setBtnRule] = useState(false);
-  const { resetGame, startPlay } = hookData;
+  const { HandleStartPlay, HandleResetGame } = hookData;
 
     const toggleModal = () => {
     setBtnRule(!btnRule);
@@ -46,8 +46,8 @@ export default function Header({ hookData }) {
       <img src="/logo.svg" />
       <button
         onClick={() => {
-          startPlay(false);
-          resetGame();
+          HandleStartPlay(false);
+          HandleResetGame();
         }}
         className="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100"
       >

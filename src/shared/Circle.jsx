@@ -1,6 +1,6 @@
 
 
-export const Circle = ({ children, updateBoard, index }) => {
+const Circle = ({ children, updateBoard, index }) => {
   
   const handleClick = () => {
     updateBoard(index);
@@ -14,3 +14,5 @@ export const Circle = ({ children, updateBoard, index }) => {
     </div>
   );
 };
+
+export default Circle;

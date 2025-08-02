@@ -1,6 +1,7 @@
 import { useUpdateBoard } from "../../hooks/useUpdateBoard";
-import Header from "../../shared/Header";
-import Main from "../../shared/Main";
+import Main from "./Main"
+import Header from "./Header"
+
 
 
 

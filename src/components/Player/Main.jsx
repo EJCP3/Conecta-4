@@ -1,34 +1,38 @@
-import { Turns } from "../constants/Turns.jsx";
-import { Circle } from "./Circle.jsx";
-import Score from "./Score.jsx";
+import { Turns } from "../../constants/Turns.jsx";
+import Score from "../../shared/Score.jsx";
+import Circle from "../../shared/Circle.jsx";
 
 export default function Main({ hookData }) {
   const {
     score,
     board,
     turn,
-    resetGame,
-    startPlay,
+    HandleResetGame,
+    HandleStartPlay,
     updateBoard,
     time,
     currentStep,
   } = hookData;
 
+
+
+
+  const mapBoard = board.map((_, index) => (
+    <Circle key={index} index={index} updateBoard={updateBoard}>
+      {board[index]}
+    </Circle>
+  ));
+
+
   return (
     <section className=" flex gap-y-2 flex-wrap sm:gap-x-0    w-11/12 lg:max-w-300 mx-auto gap-x-20 mt-5 justify-center sm:items-center  ">
-      <Score name={"PLAYER 1"} punto={score.P1} />
+      <Score name={"PLAYER 1"} punto={score.p1} />
 
       <div className="size-80 grid md:size-100 lg:w-140 lg:h-120  grid-cols-7 gap-y-2   mx-auto  border-3  rounded-4xl p-4 bg-base-100  border-b-10 order-3 sm:order-2">
-        {board.map((_, index) => {
-          return (
-            <Circle key={index} index={index} updateBoard={updateBoard}>
-              {board[index]}
-            </Circle>
-          );
-        })}
+        {mapBoard}
       </div>
 
-      <Score name={"PLAYER 2"} punto={score.P2} order={"order-2 sm:order-3"} />
+      <Score name={"PLAYER 2"} punto={score.p2} order={"order-2 sm:order-3"} />
 
       <footer className="w-full h-60   rounded-2xl  p-10 order-4  flex justify-center items-center border-b-10 border-3 ">
         {currentStep === 1 && (
@@ -37,7 +41,7 @@ export default function Main({ hookData }) {
             <h1 className="text-2xl">READY ?</h1>
             <button
               onClick={() => {
-                startPlay(true);
+                HandleStartPlay(true);
               }}
               className="btn btn-info w-30 mx-auto rounded-2xl"
             >
@@ -123,8 +127,8 @@ export default function Main({ hookData }) {
             <p>WINS</p>
             <button
               onClick={() => {
-                startPlay(false);
-                resetGame();
+                HandleStartPlay(false);
+                HandleResetGame();
               }}
               className="btn w-30 mx-auto rounded-2xl"
             >

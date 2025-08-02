@@ -1,6 +1,8 @@
-import { Bola1, Bola2 } from "../shared/bola";
-
-export  const Turns = {
-  P1: <Bola1/>,
-  P2: <Bola2/>,
+export const Turns = {
+  P1: (
+    <div className="rounded-full size-8 md:size-10 lg:size-14 pointer-none   border-2 border-t-8 bg-info "></div>
+  ),
+  P2: (
+    <div className="rounded-full size-8 md:size-10 lg:size-14 pointer-none   border-2 border-t-8 bg-error "></div>
+  ),
 };
