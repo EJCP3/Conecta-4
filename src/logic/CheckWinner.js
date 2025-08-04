@@ -1,54 +1,69 @@
-const ROWS = 6;
-const COLS = 7;
-const DIRECTIONS = [
-  { dr: 0, dc: 1 }, // →
-  { dr: 1, dc: 0 }, // ↓
-  { dr: 1, dc: 1 }, // ↘
-  { dr: 1, dc: -1 }, // ↙
-];
+import { Turns } from "../constants/Turns";
 
-export default function CheckWinner( boardToCheck, index, board ) {
+export default function checkWinner(newBoard) {
+  const COLS = 7
 
-  const player = boardToCheck[index];
-  if (!player) return false; 
-
-  const row0 = Math.floor(index / COLS);
-  const col0 = index % COLS;
-
-  for (const { dr, dc } of DIRECTIONS) {
-    let count = 1;
-
-   
-    let row = row0 + dr;
-    let column = col0 + dc;
-    while (
-      row >= 0 &&
-      row < ROWS &&
-      column >= 0 &&
-      column < COLS &&
-      board[row * COLS + column] === player
-    ) {
-      count++;
-      row += dr;
-      column += dc;
+  function getPlayerPositions(player) {
+    const positions = [];
+    for (let i = 0; i < newBoard.length; i++) {
+      if (newBoard[i] === player) {
+        positions.push({
+          x: i % COLS,
+          y: Math.floor(i / COLS),
+          index: i,
+        });
+      }
     }
-
-    row = row0 - dr;
-    column = col0 - dc;
-    while (
-      row >= 0 &&
-      row < ROWS &&
-      column >= 0 &&
-      column < COLS &&
-      board[row * COLS + column] === player
-    ) {
-      count++;
-      row -= dr;
-      column -= dc;
-    }
-
-    if (count >= 4) return player;
+    return positions;
   }
 
-  return false;
+  function checkPlayerWin(playerMoves, player) {
+    for (let i = 0; i < playerMoves.length; i++) {
+      const move = playerMoves[i];
+
+      if (
+        playerMoves.find((m) => m.x === move.x + 1 && m.y === move.y) &&
+        playerMoves.find((m) => m.x === move.x + 2 && m.y === move.y) &&
+        playerMoves.find((m) => m.x === move.x + 3 && m.y === move.y)
+      ) {
+        return player;
+      }
+
+      if (
+        playerMoves.find((m) => m.x === move.x && m.y === move.y + 1) &&
+        playerMoves.find((m) => m.x === move.x && m.y === move.y + 2) &&
+        playerMoves.find((m) => m.x === move.x && m.y === move.y + 3)
+      ) {
+        return player;
+      }
+
+      if (
+        playerMoves.find((m) => m.x === move.x + 1 && m.y === move.y + 1) &&
+        playerMoves.find((m) => m.x === move.x + 2 && m.y === move.y + 2) &&
+        playerMoves.find((m) => m.x === move.x + 3 && m.y === move.y + 3)
+      ) {
+        return player;
+      }
+
+      if (
+        playerMoves.find((m) => m.x === move.x + 1 && m.y === move.y - 1) &&
+        playerMoves.find((m) => m.x === move.x + 2 && m.y === move.y - 2) &&
+        playerMoves.find((m) => m.x === move.x + 3 && m.y === move.y - 3)
+      ) {
+        return player;
+      }
+    }
+    return null;
+  }
+
+  const player1Positions = getPlayerPositions(Turns.P1);
+  const player2Positions = getPlayerPositions(Turns.P2);
+
+  const winner1 = checkPlayerWin(player1Positions, Turns.P1);
+  if (winner1) return winner1;
+
+  const winner2 = checkPlayerWin(player2Positions, Turns.P2);
+  if (winner2) return winner2;
+
+  return null; 
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CheckWinner from "../logic/CheckWinner";
+import checkWinner from "../logic/CheckWinner";
 import { Turns } from "../constants/Turns";
 import { findIndexBoard } from "../logic/FindIndexBoard";
 import { config } from "../constants/GameConfig";
@@ -31,7 +31,7 @@ export function useUpdateBoard() {
     newBoard[NuevoIndex] = turn;
     setBoard(newBoard);
 
-    const newWinner = CheckWinner(newBoard, newIndex, board);
+    const newWinner = checkWinner(newBoard, newIndex, board);
     if (newWinner) {
       setWinner(newWinner);
       setScore((prevScore) => ({
@@ -64,11 +64,11 @@ export function useUpdateBoard() {
     return () => clearInterval(intervalId);
   }, [isRunning, turn]);
 
-  const HandleResetGame = () => {
+  const handleResetGame = () => {
     resetGame(setBoard, setTurn, setWinner, setCurrentStep);
   };
 
-  const HandleStartPlay = (value) => {
+  const handleStartPlay = (value) => {
     startPlay(setPlay, setCurrentStep, setIsRunning, value);
   };
 
@@ -79,8 +79,8 @@ export function useUpdateBoard() {
     winner,
     turn,
     time,
-    HandleResetGame,
-    HandleStartPlay,
+    handleResetGame,
+    handleStartPlay,
     currentStep,
   };
 }
