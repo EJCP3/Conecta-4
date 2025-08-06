@@ -1,7 +1,7 @@
 import { Turns } from "./Turns";
 
 export const config = {
-  tiempo: 1,
+  tiempo: 999,
 
   scorePlayer: {
     p1: 0,

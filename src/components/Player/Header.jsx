@@ -1,23 +1,21 @@
 import { Link } from "react-router-dom";
 import Btn from "../../shared/Btn";
-import Modal from "../../shared/Modal"
+import Modal from "../../shared/Modal";
 import { useState } from "react";
 
 export default function Header({ hookData }) {
   const [btnRule, setBtnRule] = useState(false);
-  const { HandleStartPlay, HandleResetGame } = hookData;
+  const { handleStartPlay, handleResetGame } = hookData;
 
-    const toggleModal = () => {
+  const toggleModal = () => {
     setBtnRule(!btnRule);
-    console.log(btnRule)
+    console.log(btnRule);
   };
-
 
   return (
     <nav className="flex justify-between navbar mx-auto max-w-200">
       <div>
         <Modal
-        
           text={"text-x"}
           name={"MENU"}
           bdModal={"!rounded-4xl"}
@@ -46,8 +44,8 @@ export default function Header({ hookData }) {
       <img src="/logo.svg" />
       <button
         onClick={() => {
-          HandleStartPlay(false);
-          HandleResetGame();
+          handleStartPlay(false);
+          handleResetGame();
         }}
         className="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100"
       >

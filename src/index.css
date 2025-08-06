@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: light --default, valentine, forest, cupcake,
-    lemonade, cyberpunk, aqua, business, night, dark;
+  themes: light --default, valentine, forest, cupcake, lemonade, cyberpunk, aqua,
+    business, night, dark;
 }
 
 html {
@@ -21,7 +21,32 @@ body {
   box-shadow: important none;
 }
 
-
 .figura {
-clip-path: polygon(0 47%, 55% 0, 100% 46%, 100% 100%, 75% 100%, 28% 100%, 0 100%);
+  clip-path: polygon(
+    0 47%,
+    55% 0,
+    100% 46%,
+    100% 100%,
+    75% 100%,
+    28% 100%,
+    0 100%
+  );
+}
+
+.piece.animating {
+  position: absolute;
+  z-index: 20;
+  transform: translateY(0);
+  animation: drop-shadow 0.12s ease-in;
+}
+
+@keyframes drop-shadow {
+  0% {
+    box-shadow: 0 0 15px currentColor;
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+  }
 }
