@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import Btn from "../../shared/Btn";
 import Modal from "../../shared/Modal";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 
 export default function Header({ hookData }) {
   const [btnRule, setBtnRule] = useState(false);
   const { handleStartPlay, handleResetGame } = hookData;
+    const { t } = useTranslation();
 
   const toggleModal = () => {
     setBtnRule(!btnRule);
@@ -17,7 +20,7 @@ export default function Header({ hookData }) {
       <div>
         <Modal
           text={"text-x"}
-          name={"MENU"}
+          name={t('header.menu')}
           bdModal={"!rounded-4xl"}
           btnStyle={
             "w-26 !h-10 bg-black/20 hover:!bg-neutral hover:!text-base-100"
@@ -25,17 +28,17 @@ export default function Header({ hookData }) {
           close={false}
         >
           <section className="flex gap-y-2 flex-col">
-            <h1 className="text-center my-2 text-4xl">PAUSE</h1>
+            <h1 className="text-center my-2 text-4xl">{t('header.title')}</h1>
             <Btn
               open={toggleModal}
-              btnName={"CONTINUE GAME"}
+              btnName={t('header.continue')}
               color={"hover:border-success"}
             />
             <Link to="/">
               <Btn
                 text={"text-white"}
                 color={"bg-error hover:border-primary"}
-                btnName={"QUIT GAME"}
+                btnName={t('header.close')}
               />
             </Link>
           </section>
@@ -45,11 +48,11 @@ export default function Header({ hookData }) {
       <button
         onClick={() => {
           handleStartPlay(false);
-          handleResetGame();
+          handleResetGame(true);
         }}
         className="btn w-26 h-10 bg-black/20 border-none hover:!bg-neutral hover:!text-base-100"
       >
-        RESET
+        {t('header.btnReset')}
       </button>
     </nav>
   );

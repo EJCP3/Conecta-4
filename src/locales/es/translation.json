@@ -1,0 +1,48 @@
+{
+    "home": {
+        "btn1": "Jugador vs Jugador",
+        "btn2": "Jugador vs IA",
+        "btn4": "Reglas del Juego",
+        "btn5": "Configuración"
+    },
+    "header": {
+        "title": "Pausa",
+        "menu": "menú",
+        "btnReset": "Reiniciar Juego",
+        "continue": "Continuar Juego",
+        "close": "Salir del Juego"
+    },
+    "game": {
+        "player1": "Jugador 1",
+        "player2": "Jugador 2",
+        "table": "¿Quién empieza?",
+        "titleTurn": "Turno",
+        "tableTitle": "¿Listo?",
+        "btnTable": "Jugar",
+        "articleTurn": "Empieza el jugador",
+        "winner": "¡Ganador!",
+        "btnPlay": "Jugar de Nuevo"
+    },
+    "rules": {
+        "title": "Reglas del Juego",
+        "subTitle": "OBJETIVO",
+        "rule1": "Sé el primer jugador en conectar 4 fichas del mismo color en una fila (ya sea vertical, horizontal o diagonalmente).",
+        "subTitle2": "CÓMO JUGAR",
+        "rule3": "Rojo comienza en la primera partida.",
+        "rule4": "Los jugadores deben alternar turnos y solo se puede colocar una ficha por turno.",
+        "rule5": "El juego termina cuando hay 4 en línea o empate.",
+        "rule6": "El que empezó la partida anterior va segundo en la siguiente.",
+        "btnClose": "Cerrar"
+    },
+    "settings": {
+        "title": "Configuración",
+        "subTitle": "Tema",
+        "subTitle2": "Idioma",
+        "languages": {
+            "es": "Español",
+            "en": "Inglés"
+        },
+        "music": "Música",
+        "btnClose": "Cerrar"
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "home": {
+        "btn1": "Player vs Player",
+        "btn2": "Player vs AI",
+        "btn4": "Game Rules",
+        "btn5": "Settings"
+    },
+    "header": {
+        "title": "Pause",
+        "menu": "Menu",
+        "btnReset": "Reset Game",
+        "continue": "Continue Game",
+        "close": "Quit Game"
+    },
+    "game": {
+        "player1": "Player 1",
+        "player2": "Player 2",
+        "table": "Player Start?",
+        "titleTurn": "Turn",
+        "tableTitle": "Ready to play?",
+        "btnTable": "Play",
+        "articleTurn": "Player Starts",
+        "winner": "Winner!",
+        "btnPlay": "Play Again"
+    },
+    "rules": {
+        "title": "Game Rules",
+        "subTitle": "OBJECTIVE",
+        "rule1": "Be the first player to connect 4 of the same colored discs in a row (either vertically, horizontally, or diagonally).",
+        "subTitle2": "HOW TO PLAY",
+        "rule3": "Red goes first in the first game.",
+        "rule4": "Players must alternate turns, and only one disc can be dropped in each turn.",
+        "rule5": "The game ends when there is a 4-in-a-row or a stalemate.",
+        "rule6": "The starter of the previous game goes second on the next game.",
+        "btnClose": "Close"
+    },
+    "settings": {
+        "title": "Settings",
+        "subTitle": "Theme",
+        "subTitle2": "Language",
+        "languages": {
+            "es": "Spanish",
+            "en": "English"
+        },
+        "music": "Music",
+        "btnClose": "Close"
+    }
+}

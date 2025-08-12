@@ -1,22 +1,29 @@
 import { Turns } from "../../constants/Turns";
+import { useTranslation } from "react-i18next";
 
 export default function CurrentStep({ hookData }) {
+  const { t } = useTranslation();
+
   const { currentStep, handleStartPlay, handleResetGame, time, turn } =
     hookData;
+
+
+  const namePLayer = turn === Turns.P1 ? t('game.player1') : t('game.player2');
+
 
   return (
     <footer className="w-full h-60   rounded-2xl  p-10 order-4  flex justify-center items-center border-b-10 border-3 ">
       {currentStep === 1 && (
         <div className="w-60 h-40 rounded-xl border-b-10 border-3 bg-base-100 p-6 order-2 text-center  ">
-          <p>PLAYERS STARTS</p>
-          <h1 className="text-2xl">READY ?</h1>
+          <p>{t("game.table")}</p>
+          <h1 className="text-2xl">{t("game.tableTitle")}</h1>
           <button
             onClick={() => {
               handleStartPlay(true);
             }}
             className="btn btn-info w-30 mx-auto rounded-2xl"
           >
-            PLAY
+            {t("game.btnTable")}
           </button>
         </div>
       )}
@@ -78,9 +85,9 @@ export default function CurrentStep({ hookData }) {
             </g>
           </svg>
           <figcaption className="text-xl absolute top-1/4 left-1/2 -translate-x-1/2 text-white font-bold ">
-            PLAYER 1 STARTS
+           {namePLayer} <span className="text-2xl">{t('game.titleTurn')}</span>
           </figcaption>
-          <figcaption className=" absolute top-1/2 left-1/2 -translate-x-1/2 text-2xl text-white font-bold mt-2">
+          <figcaption className=" absolute top-1/2 left-1/2 -translate-x-1/2 text-4xl text-white font-bold mt-2">
             {time}
           </figcaption>
         </figure>
@@ -92,16 +99,16 @@ export default function CurrentStep({ hookData }) {
             turn === Turns.P1 ? "bg-info" : "bg-error"
           } flex-col  w-60 h-40 rounded-xl border-b-10 border-3 bg-base-100 p-6 order-2 text-center flex items-center justify-center text-2xl gap-y-1 `}
         >
-          <h2 className="">Player 1</h2>
-          <p>WINS</p>
+          <h2 className=""> {namePLayer} </h2>
+          <p>{t('game.winner')}</p>
           <button
             onClick={() => {
               handleStartPlay(false);
-              handleResetGame();
+              handleResetGame(false);
             }}
             className="btn w-30 mx-auto rounded-2xl"
           >
-            PLAY AGAIN
+           {t('game.btnPlay')}
           </button>
         </div>
       )}

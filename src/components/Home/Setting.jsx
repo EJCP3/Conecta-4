@@ -1,59 +1,51 @@
 import Modal from "../../shared/Modal";
+import { useTranslation } from "react-i18next";
+import "../../logic/i18n"; // Asegúrate de importar la config
+import Theme from "./Theme";
+
 
 
 export default function Setting() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+
+ 
+
   return (
-    <Modal close={true} name={"SETTING"} btnColor={"bg-warning hover:border-error"} bgColor={"!bg-warning"}>
-      <h2 className="font-bold text-4xl text-center ">Setting</h2>
+    <Modal
+      close={true}
+      name={"SETTING"}
+      btnColor={"bg-warning hover:border-error"}
+      bgColor={"!bg-warning"}
+    >
+      <h2 className="font-bold text-4xl text-center ">{t("settings.title")}</h2>
       <article className="flex flex-col justify-center my-4">
-        <h3 className="font-bold text-2xl my-2 ">Theme</h3>
-        <div className="join   join-vertical md:join-horizontal">
-          <input
-            type="radio"
-            name="theme-buttons"
-            className="btn theme-controller join-item"
-            aria-label="Dark"
-            value="dark"
-          />
-          <input
-            type="radio"
-            name="theme-buttons"
-            className="btn theme-controller join-item"
-            aria-label="Retro"
-            value="retro"
-          />
-          <input
-            type="radio"
-            name="theme-buttons"
-            className="btn theme-controller join-item"
-            aria-label="Cyberpunk"
-            value="cyberpunk"
-          />
-          <input
-            type="radio"
-            name="theme-buttons"
-            className="btn theme-controller join-item"
-            aria-label="Valentine"
-            value="valentine"
-          />
-          <input
-            type="radio"
-            name="theme-buttons"
-            className="btn theme-controller join-item"
-            aria-label="Aqua"
-            value="aqua"
-          />
-        </div>
+        <h3 className="font-bold text-2xl my-2 ">{t("settings.subTitle")}</h3>
+        <Theme/>
       </article>
       <article className="my-4">
-        <h3 className="font-bold text-2xl my-2">Idiomas</h3>
+        <h3 className="font-bold text-2xl my-2">{t("settings.subTitle2")}</h3>
         <div className="join    join-vertical md:join-horizontal">
-          <button className="btn join-item">Español</button>
-          <button className="btn join-item">English</button>
+          <button
+            onClick={() => changeLanguage("es")}
+            className="btn join-item"
+          >
+            {t("settings.languages.es")}
+          </button>
+          <button
+            onClick={() => changeLanguage("en")}
+            className="btn join-item"
+          >
+            {t("settings.languages.en")}
+          </button>
         </div>
       </article>
       <article className="my-4">
-        <h3 className="font-bold text-2xl my-2">Music</h3>
+        <h3 className="font-bold text-2xl my-2">{t("settings.music")}</h3>
         <label className="flex cursor-pointer gap-2">
           <span className="label-text">OFF</span>
           <input

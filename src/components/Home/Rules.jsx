@@ -1,30 +1,31 @@
 import Modal from "../../shared/Modal";
+import { useTranslation } from "react-i18next";
 
 
 export default function Rules() {
+      const { t } = useTranslation();
+
   return (
-    <Modal close={true} name={"GAME RULES"} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
-      <h2 className="font-bold text-4xl text-center ">Rules</h2>
-            <h4 className="py-4 text-primary">OBJECTIVE</h4>
+    <Modal close={true} name={t('home.btn4')} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
+      <h2 className="font-bold text-4xl text-center ">{t('rules.title')}</h2>
+            <h4 className="py-4 text-primary">{t('rules.subTitle')}</h4>
             <p className="mb-6">
-              Be the first player to connect 4 of the same colored discs in a
-              row(either vertically, horizontally, or diagonally).
+              {t('rules.rule1')}
             </p>
-            <h4 className="text-primary my-2">HOW TO PLAY</h4>
+            <h4 className="text-primary my-2"> {t('rules.subTitle2')}</h4>
             <ol
               className="flex flex-col gap-y-2 list-decimal px-6 
 "
             >
-              <li>Red goes first in the first game.</li>
+              <li> {t('rules.rule3')}</li>
               <li>
-                Players must alternate turns, and only one disc can be dropped
-                in earch turn.
+               {t('rules.rule4')}
               </li>
 
-              <li>The game ands when there is a 4-in-a-row or a stalemate.</li>
+              <li> {t('rules.rule5')}</li>
 
               <li>
-                the starter od the previous game goes second on the next game.
+                 {t('rules.rule6')}
               </li>
             </ol>
     </Modal>
