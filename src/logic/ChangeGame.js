@@ -18,7 +18,7 @@ export const resetGame = (
   setWinner(initialWinner);
   setCurrentStep(initialStep);
   
-  console.log(value)
+
 
   value === true ? setScore(scorePlayer) : null;
 };

@@ -1,18 +1,28 @@
+import { useState, useEffect } from "react";
 import { Turns } from "../../constants/Turns";
 import { useTranslation } from "react-i18next";
 
 export default function CurrentStep({ hookData }) {
+  const [changeBG, setchangeBG] = useState();
   const { t } = useTranslation();
 
   const { currentStep, handleStartPlay, handleResetGame, time, turn } =
     hookData;
 
+  const namePLayer = turn === Turns.P1 ? t("game.player1") : t("game.player2");
 
-  const namePLayer = turn === Turns.P1 ? t('game.player1') : t('game.player2');
-
+  useEffect(() => {
+    currentStep === 2
+      ? time < 6
+        ? setchangeBG("animate-pulse bg-secondary")
+        : setchangeBG("none")
+      : setchangeBG("none");
+  }, [currentStep, time]);
 
   return (
-    <footer className="w-full h-60   rounded-2xl  p-10 order-4  flex justify-center items-center border-b-10 border-3 ">
+    <footer
+      className={`w-full h-60   rounded-2xl  p-10 order-4  flex justify-center items-center border-b-10 border-3  ${changeBG} `}
+    >
       {currentStep === 1 && (
         <div className="w-60 h-40 rounded-xl border-b-10 border-3 bg-base-100 p-6 order-2 text-center  ">
           <p>{t("game.table")}</p>
@@ -85,7 +95,7 @@ export default function CurrentStep({ hookData }) {
             </g>
           </svg>
           <figcaption className="text-xl absolute top-1/4 left-1/2 -translate-x-1/2 text-white font-bold ">
-           {namePLayer} <span className="text-2xl">{t('game.titleTurn')}</span>
+            {namePLayer} <span className="text-2xl">{t("game.titleTurn")}</span>
           </figcaption>
           <figcaption className=" absolute top-1/2 left-1/2 -translate-x-1/2 text-4xl text-white font-bold mt-2">
             {time}
@@ -100,7 +110,7 @@ export default function CurrentStep({ hookData }) {
           } flex-col  w-60 h-40 rounded-xl border-b-10 border-3 bg-base-100 p-6 order-2 text-center flex items-center justify-center text-2xl gap-y-1 `}
         >
           <h2 className=""> {namePLayer} </h2>
-          <p>{t('game.winner')}</p>
+          <p>{t("game.winner")}</p>
           <button
             onClick={() => {
               handleStartPlay(false);
@@ -108,7 +118,7 @@ export default function CurrentStep({ hookData }) {
             }}
             className="btn w-30 mx-auto rounded-2xl"
           >
-           {t('game.btnPlay')}
+            {t("game.btnPlay")}
           </button>
         </div>
       )}

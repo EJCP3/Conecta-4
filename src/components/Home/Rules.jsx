@@ -1,12 +1,16 @@
+import { useState } from "react";
 import Modal from "../../shared/Modal";
 import { useTranslation } from "react-i18next";
 
 
 export default function Rules() {
       const { t } = useTranslation();
+    const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <Modal close={true} name={t('home.btn4')} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}>
+    <Modal close={true} name={t('home.btn4')} btnColor={"bg-info hover:border-primary"} bgColor={"!bg-info"}   open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onOpen={() => setModalOpen(true)}>
       <h2 className="font-bold text-4xl text-center ">{t('rules.title')}</h2>
             <h4 className="py-4 text-primary">{t('rules.subTitle')}</h4>
             <p className="mb-6">

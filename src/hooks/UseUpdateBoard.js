@@ -1,4 +1,3 @@
-// En tu archivo useUpdateBoard.js
 import { useState, useEffect } from "react";
 import checkWinner from "../logic/CheckWinner";
 import { Turns } from "../constants/Turns";
@@ -10,7 +9,6 @@ export function useUpdateBoard() {
   const { initialStep, initialWinner, initialBoard, initialTurn } =
     config.InitialGame;
 
-  // Estados existentes
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [winner, setWinner] = useState(initialWinner);
   const [score, setScore] = useState(config.scorePlayer);
@@ -18,45 +16,23 @@ export function useUpdateBoard() {
   const [turn, setTurn] = useState(initialTurn);
   const [isRunning, setIsRunning] = useState(false);
   const [play, setPlay] = useState(false);
+  
+
   const [time, setTime] = useState(config.tiempo);
 
-  // NUEVOS ESTADOS para animación
-  const [animatingPieces, setAnimatingPieces] = useState([]);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const updateBoard = (index) => {
+    const IndexAleatorio = Math.floor(Math.random() * 6);
+    const newIndex = index ?? IndexAleatorio;
+    if (!play || board[newIndex] || winner) return;
 
-  // NUEVA FUNCIÓN: Animar la caída
-  const animateDropping = (animationId, col, targetRow) => {
-    let currentRow = -1;
-    const animationSpeed = 200;
+    const columna = index ? index % 7 : IndexAleatorio;
 
-    const dropInterval = setInterval(() => {
-      currentRow++;
-
-      setAnimatingPieces((prev) =>
-        prev.map((piece) =>
-          piece.id === animationId ? { ...piece, currentRow } : piece
-        )
-      );
-
-      if (currentRow >= targetRow) {
-        clearInterval(dropInterval); 
-        finalizePiece(animationId, targetRow * 7 + col);
-      }
-    }, animationSpeed);
-  };
-
-  const finalizePiece = (animationId, finalIndex) => {
+    const NuevoIndex = findIndexBoard(board, columna);
     const newBoard = [...board];
-    newBoard[finalIndex] = turn;
+    newBoard[NuevoIndex] = turn;
     setBoard(newBoard);
 
-    // Limpiar animación
-    setAnimatingPieces((prev) =>
-      prev.filter((piece) => piece.id !== animationId)
-    );
-
-    // Verificar ganador
-    const newWinner = checkWinner(newBoard, finalIndex, board);
+    const newWinner = checkWinner(newBoard, newIndex, board);
     if (newWinner) {
       setWinner(newWinner);
       setScore((prevScore) => ({
@@ -65,71 +41,38 @@ export function useUpdateBoard() {
       }));
       setCurrentStep(3);
       setIsRunning(false);
-    } else {
-      // Cambiar turno
-      const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
-      setTurn(newTurn);
-      setTime(config.tiempo);
+      return;
     }
 
-    setIsAnimating(false);
+    const newTurn = turn === Turns.P1 ? Turns.P2 : Turns.P1;
+    setTurn(newTurn);
+    setTime(config.tiempo);
   };
 
-  // FUNCIÓN MODIFICADA: updateBoard
-  const updateBoard = (index) => {
-    const IndexAleatorio = Math.floor(Math.random() * 6);
-    const newIndex = index ?? IndexAleatorio;
 
-    // Prevenir clicks durante animación
-    if (!play || board[newIndex] || winner || isAnimating) return;
-
-    const columna = index ? index % 7 : IndexAleatorio;
-    const targetRow = findIndexBoard(board, columna);
-
-    if (targetRow === -1) return; // Columna llena
-
-    // INICIAR ANIMACIÓN en lugar de colocar directamente
-    const animationId = Date.now();
-    const newAnimatingPiece = {
-      id: animationId,
-      col: columna,
-      player: turn,
-      currentRow: -1,
-      targetRow: Math.floor(targetRow / 7), // Convertir índice a fila
-      finalIndex: targetRow,
-    };
-
-    setAnimatingPieces((prev) => [...prev, newAnimatingPiece]);
-    setIsAnimating(true);
-
-    // Iniciar animación
-    animateDropping(animationId, columna, Math.floor(targetRow / 7));
-  };
-
-  // Resto del código existente...
+  
   useEffect(() => {
     if (!isRunning) return;
+
     const intervalId = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(intervalId);
+          updateBoard();
           setIsRunning(true);
         }
         return prevTime - 1;
       });
     }, 1000);
+
     return () => clearInterval(intervalId);
   }, [isRunning, turn]);
 
-  const handleResetGame = (value) => {
-    setIsAnimating(false);
-    setAnimatingPieces([]);
-    resetGame(setBoard, setTurn, setWinner, setCurrentStep, setScore,value);
+  const handleResetGame = () => {
+    resetGame(setBoard, setTurn, setWinner, setCurrentStep);
   };
 
   const handleStartPlay = (value) => {
-    setIsAnimating(false);
-    setAnimatingPieces([]);
     startPlay(setPlay, setCurrentStep, setIsRunning, value);
   };
 
@@ -143,7 +86,5 @@ export function useUpdateBoard() {
     handleResetGame,
     handleStartPlay,
     currentStep,
-    animatingPieces,
-    isAnimating,
   };
 }

@@ -5,15 +5,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 
+// Header.jsx
 export default function Header({ hookData }) {
-  const [btnRule, setBtnRule] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const { handleStartPlay, handleResetGame } = hookData;
-    const { t } = useTranslation();
-
-  const toggleModal = () => {
-    setBtnRule(!btnRule);
-    console.log(btnRule);
-  };
+  const { t } = useTranslation();
 
   return (
     <nav className="flex justify-between navbar mx-auto max-w-200">
@@ -22,15 +18,16 @@ export default function Header({ hookData }) {
           text={"text-x"}
           name={t('header.menu')}
           bdModal={"!rounded-4xl"}
-          btnStyle={
-            "w-26 !h-10 bg-black/20 hover:!bg-neutral hover:!text-base-100"
-          }
+          btnStyle={"w-26 !h-10 bg-black/20 hover:!bg-neutral hover:!text-base-100"}
           close={false}
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onOpen={() => setModalOpen(true)}
         >
           <section className="flex gap-y-2 flex-col">
             <h1 className="text-center my-2 text-4xl">{t('header.title')}</h1>
             <Btn
-              open={toggleModal}
+              open={() => setModalOpen(false)}
               btnName={t('header.continue')}
               color={"hover:border-success"}
             />
@@ -39,6 +36,7 @@ export default function Header({ hookData }) {
                 text={"text-white"}
                 color={"bg-error hover:border-primary"}
                 btnName={t('header.close')}
+                open={() => setModalOpen(false)}
               />
             </Link>
           </section>

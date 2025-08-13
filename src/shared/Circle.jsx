@@ -1,13 +1,6 @@
 const Circle = ({ children, updateBoard, index, isAnimating = false }) => {
   const handleClick = () => {
-    // Prevenir clicks durante animación
-    if (isAnimating) return;
     updateBoard(index);
-  };
-
-  // Estilos para las piezas colocadas
-  const getPieceStyle = (piece) => {
-    if (!piece) return "";
   };
 
   return (
@@ -24,7 +17,7 @@ const Circle = ({ children, updateBoard, index, isAnimating = false }) => {
         }
       `}
     >
-      {children && <div className={getPieceStyle(children)}>{children}</div>}
+      {children && <div>{children}</div>}
     </div>
   );
 };
