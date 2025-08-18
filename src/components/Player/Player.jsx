@@ -7,6 +7,7 @@ export default function Player() {
 
   const hookData = useUpdateBoard()
 
+
   return (
     <div className="w-full h-dvh">
       <Header hookData={hookData} />
