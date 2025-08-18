@@ -1,6 +1,6 @@
-import Modal from "../../shared/Modal";
+import Modal from "@/shared/Modal";
 import { useTranslation } from "react-i18next";
-import "../../logic/i18n"; // Asegúrate de importar la config
+import "@/logic/i18n"; // Asegúrate de importar la config
 import Theme from "./Theme";
 import { useState } from "react";
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Btn from "../../shared/Btn";
-import Modal from "../../shared/Modal";
+import Btn from "@/shared/Btn";
+import Modal from "@/shared/Modal";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 

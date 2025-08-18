@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Btn from "../../shared/Btn";
+import Btn from "@/shared/Btn";
 import Rules from "./Rules";
 import Setting from "./Setting";
 import { useTranslation } from "react-i18next";

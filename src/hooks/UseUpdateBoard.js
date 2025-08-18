@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import checkWinner from "../logic/CheckWinner";
-import { Turns } from "../constants/Turns";
-import { findIndexBoard } from "../logic/FindIndexBoard";
-import { config } from "../constants/GameConfig";
-import { resetGame, startPlay } from "../logic/ChangeGame";
+import checkWinner from "@/logic/CheckWinner";
+import { Turns } from "@/constants/Turns";
+import { findIndexBoard } from "@/logic/FindIndexBoard";
+import { config } from "@/constants/GameConfig";
+import { resetGame, startPlay } from "@/logic/ChangeGame";
 
 export function useUpdateBoard() {
   const { initialStep, initialWinner, initialBoard, initialTurn } =

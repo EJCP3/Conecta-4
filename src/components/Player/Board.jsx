@@ -1,5 +1,5 @@
-import Score from "../../shared/Score";
-import Circle from "../../shared/Circle.jsx";
+import Score from "@/shared/Score";
+import Circle from "@/shared/Circle.jsx";
 import { useTranslation } from "react-i18next";
 
 export default function Board({

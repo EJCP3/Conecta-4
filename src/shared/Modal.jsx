@@ -12,9 +12,9 @@ export default function Modal({
   text,
   close,
   bdModal,
-  open,        // nuevo
-  onOpen,      // nuevo
-  onClose      // nuevo
+  open,        
+  onOpen,      
+  onClose      
 }) {
   const { t } = useTranslation();
 

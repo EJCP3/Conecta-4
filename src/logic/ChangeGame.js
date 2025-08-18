@@ -1,4 +1,4 @@
-import { config } from "../constants/GameConfig";
+import { config } from "@/constants/GameConfig";
 
 export const resetGame = (
   setBoard,

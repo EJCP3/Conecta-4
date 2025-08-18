@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Turns } from "../../constants/Turns";
+import { Turns } from "@/constants/Turns";
 import { useTranslation } from "react-i18next";
 
 export default function CurrentStep({ hookData }) {

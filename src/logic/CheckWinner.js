@@ -1,4 +1,4 @@
-import { Turns } from "../constants/Turns";
+import { Turns } from "@/constants/Turns";
 
 export default function checkWinner(newBoard) {
   const COLS = 7
