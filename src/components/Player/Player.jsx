@@ -1,13 +1,11 @@
+
+import Main from "./Main";
+import Header from "./Header";
 import { useUpdateBoard } from "../../hooks/useUpdateBoard";
-import Main from "./Main"
-import Header from "./Header"
-
-
-
 
 export default function Player() {
 
-  const hookData = useUpdateBoard(); 
+  const hookData = useUpdateBoard()
 
   return (
     <div className="w-full h-dvh">

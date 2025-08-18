@@ -16,7 +16,6 @@ export function useUpdateBoard() {
   const [turn, setTurn] = useState(initialTurn);
   const [isRunning, setIsRunning] = useState(false);
   const [play, setPlay] = useState(false);
-  
 
   const [time, setTime] = useState(config.tiempo);
 
@@ -49,8 +48,6 @@ export function useUpdateBoard() {
     setTime(config.tiempo);
   };
 
-
-  
   useEffect(() => {
     if (!isRunning) return;
 
