@@ -18,13 +18,13 @@ export default function Home() {
               color="bg-primary hover:border-success"
             />
           </Link>
-          <span className="my-auto md:my-4 md:mx-auto divider ">OR</span>
+          {/* <span className="my-auto md:my-4 md:mx-auto divider ">OR</span>
           <Link to="/cpu">
             <Btn
               btnName={t("home.btn2")}
               color="bg-primary hover:border-success"
             />
-          </Link>
+          </Link> */}
           <div className="divider"></div>
         </article>
         <article className="flex w-full flex-col gap-2 text-black">
