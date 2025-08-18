@@ -1,7 +1,7 @@
 
 import Main from "./Main";
 import Header from "./Header";
-import { useUpdateBoard } from "@/hooks/useUpdateBoard";
+import  useUpdateBoard  from "@/hooks/useUpdateBoard";
 
 export default function Player() {
 
